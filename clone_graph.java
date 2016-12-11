@@ -2,26 +2,8 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class clone_graph {
-	
-	public static void main(String[] args){
-		clone_graph c = new clone_graph();
-		/*
-		UndirectedGraphNode one = new UndirectedGraphNode(1);
-		UndirectedGraphNode two = new UndirectedGraphNode(2);
-		UndirectedGraphNode three = new UndirectedGraphNode(3);
-		one.neighbors = new ArrayList<UndirectedGraphNode>();
-		one.neighbors.add(two);
-		one.neighbors.add(three);
-		two.neighbors = new ArrayList<UndirectedGraphNode>();
-		two.neighbors.add(three);*/
-		
-		//UndirectedGraphNode res = c.cloneGraph(one);
-		System.out.println();
-	}
-	
 	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
 		if(node == null) return null;
 		HashMap<Integer, UndirectedGraphNode> map = new HashMap<>();//hashMap to store known nodes
