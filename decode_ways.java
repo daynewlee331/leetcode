@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class decode_ways {
 	public static void main(String[] args){
 		decode_ways dw = new decode_ways();
-		dw.numDecodings("1224");
+		dw.numDecodings("123");
 	}
 	
 	public int numDecodings(String s) {
