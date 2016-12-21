@@ -48,4 +48,28 @@ public class combination_sum {
 			}
 		}
 	}
+	
+	//leetcode no216
+	//combination sum III
+	public List<List<Integer>> combinationSum3(int k, int n) {
+        int[] nums = {1,2,3,4,5,6,7,8,9};
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(k < 1 || n < 0) return res;
+        combinationSum3_helper(0, nums, res, new ArrayList<Integer>(), n, k);
+        return res;
+    }
+	
+	public void combinationSum3_helper(int start, int[] nums, List<List<Integer>> res
+			, List<Integer> cur, int target, int k){
+		if(target == 0 && cur.size() == k){
+			res.add(new ArrayList<>(cur));
+			return;
+		}else if(target > 0 && cur.size() < k){
+			for(int i = start; i < nums.length; i ++){
+				cur.add(nums[i]);
+				combinationSum3_helper(i + 1, nums, res, cur, target - nums[i], k);
+				cur.remove(cur.size() - 1);
+			}
+		}
+	}
 }
