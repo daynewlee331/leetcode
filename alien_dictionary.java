@@ -26,8 +26,6 @@ public class alien_dictionary {
         		if(!bfs(visited, adj, sb, i)) return "";
         	}
         }
-        
-        System.out.println(sb.toString());
         return sb.reverse().toString();
     }
 	
