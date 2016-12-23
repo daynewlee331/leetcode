@@ -37,11 +37,9 @@ public class text_justification {
 					int tmp = (maxWidth - curL) / (count - 1);
 					int m = (maxWidth - curL) % (count - 1);
 					for(int j = 0; j < buffer.size(); j ++){
-						int nspace = count <= m ? tmp+1 : tmp;
+						int nspace = (j + 1) <= m ? tmp+1 : tmp;
 						if(j != buffer.size() - 1){
 							sb.append(buffer.get(j));
-							//int k = 0;
-							//if((maxWidth - curL) % (count - 1) != 0 && j == 0) k = -1;
 							for(int k = 0; k < nspace; k ++){
 								sb.append(" ");
 							}
