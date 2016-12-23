@@ -17,7 +17,6 @@ public class text_justification {
         if(words == null || words.length == 0) return res;
         int curL = 0;
         int count = 0;
-        //boolean oneWordLeft = false;
         StringBuilder sb = new StringBuilder();
         ArrayList<String> buffer = new ArrayList<String>();
         for(int i = 0; i < words.length; i ++){
@@ -26,7 +25,6 @@ public class text_justification {
         		curL += words[i].length();
         		count ++;
 			} else {
-				//TODO
 				if(count == 1){//only a single word
 					int tmp = maxWidth - curL;
 					sb.append(buffer.get(0));
@@ -57,13 +55,9 @@ public class text_justification {
 				buffer.add(words[i]);
 				curL = words[i].length();
 				count = 1;
-				/*
-				if(i == words.length - 1){
-					oneWordLeft = true;
-				}*/
         	}
         }
-		if (buffer.size() == 1) {
+        if (buffer.size() == 1) {
 			int tmp = maxWidth - curL;
 			sb.append(buffer.get(0));
 			for (int j = 0; j < tmp; j++) {
