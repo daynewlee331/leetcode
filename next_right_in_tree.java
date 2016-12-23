@@ -18,40 +18,44 @@ public class next_right_in_tree {
 		TreeNode right;
 		TreeNode(int x) { val = x; }
 	}
-	//leetcode 117
-	//Populating Next Right Pointers in Each Node II
-	//What if the given tree could be any binary tree? Would your previous solution still work?
-	//这道题本质是树的层序遍历，只是队列改成用结点自带的链表结点来维护。
+
+	// leetcode 117
+	// Populating Next Right Pointers in Each Node II
+	// What if the given tree could be any binary tree? Would your previous
+	// solution still work?
+	// 这道题本质是树的层序遍历，只是队列改成用结点自带的链表结点来维护。
 	public void connect2(TreeLinkNode root) {
-		TreeLinkNode head = null; //The left most node in the lower level
-        TreeLinkNode prev = null; //The previous node in the lower level
-        TreeLinkNode cur = root;  //The current node in the upper level
-        
-        while(cur != null){
-        	while(cur != null){
-        		if(cur.left != null){
-        			if(prev == null){//means we are already accessing the left most node of lower level.
-        				head = cur.left;
-        			}else{
-        				prev.next = cur.left;
-        			}
-        			prev = cur.left;  
-        		}
-        		if(cur.right != null){
-        			if(prev == null){
-        				head = cur.right;//means we are already accessing the left most node of lower level.
-        			}else{
-        				prev.next = cur.right;
-        			}
-        			prev = cur.right;
-        		}
-        		cur = cur.next;
-        	}
-        	cur = head;
-        	prev = null;
-        	head = null;
-        }
-    }
+		TreeLinkNode head = null; // The left most node in the lower level
+		TreeLinkNode prev = null; // The previous node in the lower level
+		TreeLinkNode cur = root; // The current node in the upper level
+
+		while (cur != null) {
+			while (cur != null) {
+				if (cur.left != null) {
+					if (prev == null) {// means we are already accessing the
+										// left most node of lower level.
+						head = cur.left;
+					} else {
+						prev.next = cur.left;
+					}
+					prev = cur.left;
+				}
+				if (cur.right != null) {
+					if (prev == null) {
+						head = cur.right;// means we are already accessing the
+											// left most node of lower level.
+					} else {
+						prev.next = cur.right;
+					}
+					prev = cur.right;
+				}
+				cur = cur.next;
+			}
+			cur = head;
+			prev = null;
+			head = null;
+		}
+	}
 	
 	//leetcode 116
 	//Populating Next Right Pointers in Each Node
