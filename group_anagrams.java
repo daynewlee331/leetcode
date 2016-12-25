@@ -12,6 +12,13 @@ public class group_anagrams {
 		List<List<String>> res = ga.groupAnagrams(test);
 		System.out.println();
 	}
+	//leeetcode 49. Group Anagrams
+	//
+	// Given an array of strings, group anagrams together.
+	// For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"], 
+	// Return:[ ["ate", "eat","tea"], ["nat","tan"], ["bat"] ]
+	// 
+	//
 	
 	public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList<List<String>>();
