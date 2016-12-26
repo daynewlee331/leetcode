@@ -7,6 +7,7 @@ public class rotate_list {
 		ListNode(int x) { val = x; }
 	}
 	//leetcode 61. Rotate List
+	//The basic idea is to link the tail of the list with the head, make it a cycle. Then count to the rotate point and cut it.
 	public ListNode rotateRight(ListNode head, int k) {
 		if(head == null) return null;
         ListNode copy = head;
