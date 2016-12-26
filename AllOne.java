@@ -9,14 +9,24 @@ public class AllOne {
 		AllOne a = new AllOne();
 		a.inc("alpha");
 		a.inc("alpha");
+		a.dec("alpha");
+		a.dec("alpha");
 		a.inc("alpha");
-		a.inc("alpha");
-		a.inc("alpha");
+		a.dec("alpha");
 		a.inc("beta");
 		a.inc("beta");
 		a.inc("gamma");
 		a.inc("gamma");
-		System.out.println("test done");
+		a.inc("sigma");
+		a.inc("sigma");
+		a.dec("beta");
+		a.dec("beta");
+		a.dec("sigma");
+		a.dec("sigma");
+		a.dec("gamma");
+		a.dec("gamma");
+		System.out.println(a.getMinKey());
+		System.out.println(a.getMaxKey());
 	}
 	class doublyLinkedListNode{
 		int value;
@@ -86,30 +96,58 @@ public class AllOne {
     	
     }
     
+    /** Decrements an existing key by 1. If Key's value is 1, remove it from the data structure. */
+    public void dec(String key) {
+        if(this.fakeHead.next == null || !this.map.containsKey(key)) return; //no such key in the data structure
+        doublyLinkedListNode cur = this.map.get(key);
+        if(cur.value - 1 == 0){
+        	cur.elements.remove(key);
+        	checkEmpty(cur);
+        	this.map.remove(key);
+        }else{//the node is in the middle
+        	if(cur.prev.value == cur.value - 1){
+        		this.map.put(key, cur.prev);
+            	cur.elements.remove(key);
+            	cur.prev.elements.add(key);
+            	checkEmpty(cur);
+        	}else{//build a new node
+        		doublyLinkedListNode newNode = new doublyLinkedListNode(cur.value - 1);
+            	this.map.put(key, newNode);
+            	cur.elements.remove(key);
+            	newNode.elements.add(key);
+            	doublyLinkedListNode prev = cur.prev;
+            	prev.next = newNode;
+            	newNode.next = cur;
+            	cur.prev = newNode;
+            	newNode.prev = prev;
+            	checkEmpty(cur);
+        	}
+        }
+    }
+    
+    /** Returns one of the keys with maximal value. */
+    public String getMaxKey() {
+        if(this.fakeHead.next == null) return "";
+        return this.fakeHead.prev.elements.get(0);
+    }
+    
+    /** Returns one of the keys with Minimal value. */
+    public String getMinKey() {
+    	if(this.fakeHead.next == null) return "";
+    	return this.fakeHead.next.elements.get(0);
+    }
+    
     public boolean checkEmpty(doublyLinkedListNode node){
     	if(node.elements.size() > 0) return false;
     	doublyLinkedListNode prev = node.prev;
     	doublyLinkedListNode next = node.next;
     	prev.next = next;
     	next.prev = prev;
+    	if(next == prev && next == this.fakeHead){//set to empty
+    		this.fakeHead.next = null;
+    		this.fakeHead.prev = null;
+    	}
     	return true;
-    }
-    
-    /** Decrements an existing key by 1. If Key's value is 1, remove it from the data structure. */
-    public void dec(String key) {
-        
-    }
-    
-    /** Returns one of the keys with maximal value. */
-    public String getMaxKey() {
-        if(this.fakeHead.next == null) return "";
-        return this.fakeHead.next.elements.get(0);
-    }
-    
-    /** Returns one of the keys with Minimal value. */
-    public String getMinKey() {
-    	if(this.fakeHead.next == null) return "";
-    	return this.fakeHead.prev.elements.get(0);
     }
 	
 }
