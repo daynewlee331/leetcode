@@ -7,21 +7,10 @@ import java.util.Stack;
 public class integer_to_english {
 	public static void main(String[] args){
 		integer_to_english ie = new integer_to_english();
-		/*
-		System.out.println(ie.three_digits("001"));
-		System.out.println(ie.three_digits("00"));
-		System.out.println(ie.three_digits("000"));
-		System.out.println(ie.three_digits("100"));
-		System.out.println(ie.three_digits("180"));
-		System.out.println(ie.three_digits("200"));
-		System.out.println(ie.three_digits("278"));
-		System.out.println(ie.three_digits("999"));*/
 		String test = ie.numberToWords(10540320);
-		//String test = ie.numberToWords(90210);
 		System.out.println(test);
 	}
-	private String[] single = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
-	private String[] teen = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+	private String[] lessThan20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private String[] tens = {"*","*","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
 	private String[] scale = {"","","Thousand", "Million", "Billion"};
 	private String[] hundreds = {"","One Hundred","Two Hundred","Three Hundred","Four Hundred","Five Hundred","Six Hundred","Seven Hundred","Eight Hundred","Nine Hundred"};	
@@ -74,17 +63,11 @@ public class integer_to_english {
 		if(Integer.parseInt(num) == 0) return "";
 		char[] arr = num.toCharArray();
 		
-		if(arr.length == 2){
-        	if(arr[0] == '0'){
-        		return single[arr[1] - '0'];
-        	}else if(arr[0] == '1'){
-        		return teen[arr[1] - '0'];
-        	}else{//the first digit is bigger than 1
-        		String digit = single[arr[1] - '0'];
-        		return digit.equals("")? tens[arr[0] - '0']: tens[arr[0] - '0'] + " " + single[arr[1] - '0'];
-        	}
-        }else{//length == 1
-        	return single[arr[0] - '0'];
-        }
+		if(Integer.parseInt(num) < 20){
+			return this.lessThan20[Integer.parseInt(num)];
+		}else{
+			String digit = lessThan20[arr[1] - '0'];
+    		return digit.equals("")? tens[arr[0] - '0']: tens[arr[0] - '0'] + " " + digit;
+		}
 	}
 }
