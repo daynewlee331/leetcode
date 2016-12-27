@@ -30,7 +30,7 @@ public class integer_to_english {
         	String digits = three_digits(st);
         	res.append(digits);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
-        	if(digits != "")res.append(scale[size]);
+        	if(digits != "") res.append(scale[size]);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
         }
         return res.toString().trim();
