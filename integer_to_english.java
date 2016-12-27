@@ -40,9 +40,8 @@ public class integer_to_english {
 		if(num > 99){
 			String digits = two_digits(num % 100);
 			return digits.equals("")? hundreds[num / 100]: hundreds[num / 100] + " " + digits;
-		}else{
-			return two_digits(num);
 		}
+		return two_digits(num);
 	}
 	
 	public String two_digits(int num){
