@@ -11,7 +11,7 @@ public class integer_to_english {
 	}
 	private String[] lessThan20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private String[] tens = {"*","*","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
-	private String[] scale = {"","","Thousand", "Million", "Billion"};
+	private String[] thousands = {"","","Thousand", "Million", "Billion"};
 	private String[] hundreds = {"","One Hundred","Two Hundred","Three Hundred","Four Hundred","Five Hundred","Six Hundred","Seven Hundred","Eight Hundred","Nine Hundred"};	
 	
 	public String numberToWords(int num) {
@@ -30,7 +30,7 @@ public class integer_to_english {
         	String digits = three_digits(st);
         	res.append(digits);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
-        	if(digits != "") res.append(scale[size]);
+        	if(digits != "") res.append(thousands[size]);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
         }
         return res.toString().trim();
