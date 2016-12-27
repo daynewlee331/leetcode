@@ -37,7 +37,6 @@ public class integer_to_english {
     }
 	
 	public String three_digits(int num){
-		if(num == 0) return "";
 		if(num > 99){
 			String digits = two_digits(num % 100);
 			return digits.equals("")? hundreds[num / 100]: hundreds[num / 100] + " " + digits;
@@ -47,7 +46,6 @@ public class integer_to_english {
 	}
 	
 	public String two_digits(int num){
-		if(num == 0) return "";
 		if(num < 20){
 			return this.lessThan20[num];
 		}else{
