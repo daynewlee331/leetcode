@@ -7,8 +7,7 @@ import java.util.Stack;
 public class integer_to_english {
 	public static void main(String[] args){
 		integer_to_english ie = new integer_to_english();
-		String test = ie.numberToWords(10540320);
-		System.out.println(test);
+		System.out.println(ie.two_digits(0));
 	}
 	private String[] lessThan20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private String[] tens = {"*","*","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
@@ -18,18 +17,16 @@ public class integer_to_english {
 	public String numberToWords(int num) {
 		if(num == 0) return "Zero";
         
-        String s = num + "";
-        Stack<String> stack = new Stack<String>();
+        Stack<Integer> stack = new Stack<Integer>();
         while(num > 0){
-        	StringBuilder tmp = new StringBuilder();
-        	tmp.append(num % 1000);
+        	int tmp = num % 1000;
         	num = num / 1000;
-        	stack.add(tmp.toString());
+        	stack.add(tmp);
         }
         StringBuilder res = new StringBuilder();
         while(!stack.isEmpty()){
         	int size = stack.size();
-        	String st = stack.pop();
+        	int st = stack.pop();
         	String digits = three_digits(st);
         	res.append(digits);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
@@ -38,36 +35,24 @@ public class integer_to_english {
         }
         return res.toString().trim();
     }
-		
-	public String three_digits(String num){
-		if(num.length() > 3 || num.length() < 1) return null;
-		if(Integer.parseInt(num) == 0) return "";
-        
-        char[] arr = num.toCharArray();
-        if(arr.length == 3){
-        	if(arr[0] == '0'){
-        		return two_digits(arr[1] + "" + arr[2] );
-        	}else{
-        		String digits = two_digits(arr[1] + "" + arr[2]);
-        		return digits.equals("")? hundreds[arr[0] - '0']: hundreds[arr[0] - '0'] + " " + two_digits(arr[1] + "" + arr[2]);
-        	}
-        }else if(arr.length == 2) {
-        	return two_digits(arr[0] + "" +  arr[1]);
-        }else{
-        	return two_digits(arr[0] + "");
-        }
+	
+	public String three_digits(int num){
+		if(num == 0) return "";
+		if(num > 99){
+			String digits = two_digits(num % 100);
+			return digits.equals("")? hundreds[num / 100]: hundreds[num / 100] + " " + digits;
+		}else{
+			return two_digits(num);
+		}
 	}
 	
-	public String two_digits(String num){
-		if(num.length() > 2 || num.length() < 1) return null;
-		if(Integer.parseInt(num) == 0) return "";
-		char[] arr = num.toCharArray();
-		
-		if(Integer.parseInt(num) < 20){
-			return this.lessThan20[Integer.parseInt(num)];
+	public String two_digits(int num){
+		if(num == 0) return "";
+		if(num < 20){
+			return this.lessThan20[num];
 		}else{
-			String digit = lessThan20[arr[1] - '0'];
-    		return digit.equals("")? tens[arr[0] - '0']: tens[arr[0] - '0'] + " " + digit;
+			String digit = lessThan20[num % 10];
+    		return digit.equals("")? tens[num / 10]: tens[num / 10] + " " + digit;
 		}
 	}
 }
