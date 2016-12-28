@@ -7,6 +7,18 @@ public class palindrome_Linkedlist {
 		ListNode(int x) { val = x; }
 	}
 	
+	//leetcode: 9. Palindrome Number
+	public boolean isPalindromeNum(int x) {
+        if(x < 0 || (x != 0 && x % 10 == 0)) return false;
+        int res = 0;
+        while(x > res){
+        	res = res * 10 + x % 10;
+        	x = x / 10;
+        }
+        return (res == x || res / 10 == x); //even or odd number of digits;
+    }
+	
+	//leetcode 234. Palindrome Linked List
 	public boolean isPalindrome(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
