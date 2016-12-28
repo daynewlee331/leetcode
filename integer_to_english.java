@@ -26,8 +26,7 @@ public class integer_to_english {
         StringBuilder res = new StringBuilder();
         while(!stack.isEmpty()){
         	int size = stack.size();
-        	int st = stack.pop();
-        	String digits = three_digits(st);
+        	String digits = three_digits(stack.pop());
         	res.append(digits);
         	if(size - 1 != 0 && digits!= "") res.append(" ");
         	if(digits != "") res.append(thousands[size]);
