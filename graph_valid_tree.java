@@ -13,6 +13,37 @@ public class graph_valid_tree {
 		gvt.findOrder(10, prerequisites);
 	}
 	
+	//leetcode 207. Course Schedule
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if(numCourses == 0) return false;
+        int index = 0;
+        int[] inDegree = new int[numCourses];
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for(int[] edge: prerequisites){
+        	inDegree[edge[0]] ++;
+        }
+        for(int i = 0; i < inDegree.length; i ++){
+        	if(inDegree[i] == 0){
+        		index ++;
+        		queue.offer(i);
+        	}
+        }
+        while(!queue.isEmpty()){
+        	int prerequisite = queue.poll();
+        	for(int i = 0; i < prerequisites.length; i ++){
+        		if(prerequisites[i][1] == prerequisite){
+        			int course = prerequisites[i][0];
+        			inDegree[course] --;
+        			if(inDegree[course] == 0){
+        				index ++;
+        				queue.offer(course);
+        			}
+        		}
+        	}
+        }
+        return index == numCourses? true: false;
+    }
+	
 	//leetcode 210 Course Schedule II
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
 		if(numCourses == 0) return null;
