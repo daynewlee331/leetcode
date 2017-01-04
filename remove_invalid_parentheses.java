@@ -10,7 +10,7 @@ import java.util.Set;
 public class remove_invalid_parentheses {
 	public static void main(String[] args){
 		remove_invalid_parentheses rp = new remove_invalid_parentheses();
-		rp.removeInvalidParentheses("())");
+		rp.removeInvalidParentheses("()())()");
 	}
 	
 	//leetcode 301. Remove Invalid Parentheses
