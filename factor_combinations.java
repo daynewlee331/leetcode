@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class factor_combinations {
+	//leetcode: 254. Factor Combinations
 	public List<List<Integer>> getFactors(int n) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		if(n <= 3) return res;
