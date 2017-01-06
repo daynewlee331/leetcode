@@ -45,7 +45,7 @@ public class spiral_matrix {
         	
         	//traverse up
         	if(colBegin <= colEnd){
-        		for(int i = rowEnd; i <= rowBegin; i --){
+        		for(int i = rowEnd; i >= rowBegin; i --){
         			res[i][colBegin] = count;
         			count ++;
         		}
