@@ -15,8 +15,28 @@ public class k_pairs_with_smallest_sums {
 			pair = new int[]{n1, n2};
 			sum = (long)n1 + (long)n2;
 		}
-		
 	}
+	class Tuple{
+		int row;
+		int col;
+		int val;
+		Tuple(int row, int col, int val){
+			this.row = row;
+			this.col = col;
+			this.val = val;
+		}
+	}
+	public static void main(String[] args){
+		int[][] test = {{1,5,9},{10,11,13},{12,13,15}};
+		k_pairs_with_smallest_sums obj = new k_pairs_with_smallest_sums();
+		obj.kthSmallest(test, 8);
+	}
+	
+	//leetcode378. Kth Smallest Element in a Sorted Matrix
+	public int kthSmallest(int[][] matrix, int k) {
+		
+    }
+	
 	//leetcode 373. Find K Pairs with Smallest Sums
 	 public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
 		 List<int[]> res = new ArrayList<int[]>();
