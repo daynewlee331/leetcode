@@ -59,27 +59,17 @@ public class group_anagrams {
 		return res;
     }
 	
-	public boolean isAnagrams(String s1, String s2){
-		HashMap<Character, Integer> hm = new HashMap<Character, Integer>();
-		if(s1.length() != s2.length()) return false;
-		for(int i = 0; i < s1.length(); i ++){
-			if(hm.containsKey(s1.charAt(i))){
-				int num = hm.get(s1.charAt(i));
-				hm.put(s1.charAt(i), num + 1);
-			}else{
-				hm.put(s1.charAt(i), 1);
-			}
+	//leetcode 242. Valid Anagram
+	public boolean isAnagrams(String s, String t){
+		char[] arr = new char[26];
+		if(s.length() != t.length()) return false;
+		for(int i = 0; i < s.length(); i ++){
+			arr[s.charAt(i) - 'a'] ++;
+			arr[t.charAt(i) - 'a'] --;
 		}
-		for(int j = 0; j < s2.length(); j ++){
-			if(hm.containsKey(s2.charAt(j))){
-				int num = hm.get(s2.charAt(j));
-				if(num == 0) return false;
-				hm.put(s2.charAt(j), num - 1);
-			}else{
-				return false;
-			}
+		for(int i = 0; i < arr.length; i ++){
+			if(arr[i] != 0) return false;
 		}
-		
 		return true;
 	}
 }
