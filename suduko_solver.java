@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.HashSet;
+
 public class suduko_solver {
 	public void solveSudoku(char[][] board) {
         if(board == null || board.length == 0) return;
@@ -34,4 +36,49 @@ public class suduko_solver {
                 if (board[p][q] == c) return false;
         return true;
     }
+     
+     //leetcode 36. Valid Sudoku
+     public boolean isValidSudoku(char[][] board) {
+         HashSet<Character> set = new HashSet<Character>();
+         for(int i = 0; i < 9; i ++){
+        	 set = new HashSet<Character>();
+        	 for(int j = 0; j < 9; j ++){//check each row
+        		 char c = board[i][j];
+        		 if(c != '.'){
+        			 if(set.contains(c)) return false;
+        			 set.add(c);
+        		 }
+        	 }
+         }
+         
+         for(int i = 0; i < 9; i ++){
+        	 set = new HashSet<Character>();
+        	 for(int j = 0; j < 9; j ++){
+        		 char c = board[j][i];
+        		 if(c != '.'){
+        			 if(set.contains(c)) return false;
+        			 set.add(c);
+        		 }
+        	 }
+         }
+         
+         for(int i = 0; i < 9; i = i + 3){
+        	 for(int j = 0; j < 9; j = j + 3){
+        		 
+        		 set = new HashSet<Character>();
+        		 for(int p = i; p < i + 3; p ++){
+        			 for(int q = j; q < j + 3; q ++){
+        				 char c = board[p][q];
+        				 if(c != '.'){
+        					 if(set.contains(c)) return false;
+        					 set.add(c);
+        				 }
+        			 }
+        		 }
+        		 
+        	 }
+         }
+         
+         return true;
+     }
 }
