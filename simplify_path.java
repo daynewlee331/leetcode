@@ -1,7 +1,9 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 
@@ -27,6 +29,22 @@ public class simplify_path {
 		simplify_path sp = new simplify_path();
 		String s = sp.simplifyPath("/abc/.../");
 		System.out.println();
+	}
+	
+	public String simplifyPathDeque(String path) {
+		Deque<String> stack = new LinkedList<String>();
+		Set<String> skip = new HashSet<String>(Arrays.asList("", ".", ".."));
+		String[] arr = path.split("/");
+		for(String st: arr){
+			if(st.equals("..") && stack.size() > 0) stack.pop();
+			else if(!skip.contains(st)) stack.push(st);
+		}
+		
+		String res = "";
+		for(String dir: stack){
+			res = "/" + dir + res;
+		}
+		return res.length() == 0? "/" : res;
 	}
 	
 	public String simplifyPath(String path) {
