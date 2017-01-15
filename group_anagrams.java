@@ -20,6 +20,29 @@ public class group_anagrams {
 	// 
 	//
 	
+	public List<List<String>> groupAnagramsPrimeHashing(String[] strs) {
+		int[] primeFactors = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103};
+		HashMap<Long, List<String>> map = new HashMap<Long, List<String>>();
+		List<List<String>> res = new ArrayList<List<String>>();
+		if(strs == null || strs.length < 1) return res;
+		for(String st: strs){
+			char[] ch = st.toCharArray();
+			long key = 1;
+			for(int i = 0; i < ch.length; i ++) key *= primeFactors[ch[i] - 'a'];
+			if(!map.containsKey(key)){
+				List<String> list = new ArrayList<String>();
+				list.add(st);
+				map.put(key, list);
+			}else{
+				map.get(key).add(st);
+			}
+		}
+		for(long key: map.keySet()){
+			res.add(map.get(key));
+		}
+		return res;
+	}
+	
 	public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList<List<String>>();
 		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
