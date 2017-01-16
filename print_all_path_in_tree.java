@@ -1,6 +1,8 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class print_all_path_in_tree {
@@ -12,7 +14,32 @@ public class print_all_path_in_tree {
 		root.left.left = new TreeNode(4);
 		root.right.left = new TreeNode(5);
 		root.right.right = new TreeNode(6);
-		obj.printPath(root);
+		obj.printAllPath(root);
+	}
+	
+	public void printAllPath(TreeNode root){
+		if(root == null) return;
+		Queue<Object> queue = new LinkedList<Object>();
+		queue.add(root);
+		queue.add(root.val + "");
+		while(!queue.isEmpty()){
+			TreeNode cur = (TreeNode)queue.poll();
+			String path = (String) queue.poll();
+			if(cur.left == null && cur.right == null){
+				System.out.println(path);
+				continue;
+			}
+			if(cur.left != null){
+				String left = path + "->" + cur.left.val;
+				queue.offer(cur.left);
+				queue.offer(left);
+			}
+			if(cur.right != null){
+				String right = path + "->" + cur.right.val;
+				queue.offer(cur.right);
+				queue.offer(right);
+			}
+		}
 	}
 	
 	public void printPath(TreeNode root){
