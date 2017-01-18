@@ -1,6 +1,24 @@
 package leetcode;
 
 public class longest_path_BT {
+	public int maxPathSum(TreeNode root) {
+        int[] max = new int[1];
+        max[0] = Integer.MIN_VALUE;
+        getLongestPath(root, max);
+        return max[0];
+    }
+	
+	//leetcode 124
+	public int getLongestPath(TreeNode root, int[] max){
+		//get the sum of left subtree and right subtree separately
+		//add them together with current node value to see if it's bigger than current max
+		if(root == null) return 0;
+		int left = Math.max(0, getLongestPath(root.left, max));
+		int right = Math.max(0, getLongestPath(root.right, max));
+		max[0] = Math.max(max[0], left + right + root.val);
+		return Math.max(left, right) + root.val;
+	}
+	
 	//longest path in a BT, could be leaf to leaf
 	public int longestPath(TreeNode root){
 		if(root == null) return 0;
