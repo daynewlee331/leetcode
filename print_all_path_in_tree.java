@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 public class print_all_path_in_tree {
 	public static void main(String[] args){
 		print_all_path_in_tree obj = new print_all_path_in_tree();
@@ -14,7 +13,7 @@ public class print_all_path_in_tree {
 		root.left.left = new TreeNode(4);
 		root.right.left = new TreeNode(5);
 		root.right.right = new TreeNode(6);
-		obj.printAllPath(root);
+		obj.printPath(root);
 	}
 	
 	public void printAllPath(TreeNode root){
