@@ -1,30 +1,11 @@
 package leetcode;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-
-import org.w3c.dom.Element;
 
 public class top_k_frequent_elements {
-	class Element{
-		int val;
-		int frequence;
-		public Element(int val, int fre){
-			this.val = val;
-			this.frequence = fre;
-		}
-	}
-	
-	//1, 1, 1, 2, 2, 3
-	//1 -> [1,3]
-	//2 -> [2, 2]
-	//3 -> [3, 1]
-	
 	public List<Integer> topKFrequent(int[] nums, int k) {
 		List<Integer>[] bucket = new List[nums.length + 1];
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
