@@ -10,6 +10,7 @@ public class merge_K_sorted_arrs {
 		int val;
 		int listIndex;
 		int arrIndex;
+		
 		Element(int val, int x, int y){
 			this.val = val;
 			this.listIndex = x;
