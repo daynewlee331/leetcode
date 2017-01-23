@@ -21,7 +21,6 @@ public class sliding_window_maximum {
 	public int[] maxSlidingWindow(int[] nums, int k) {
 		if(nums == null || nums.length < 1 || k < 1) return new int[0];
 		int n = nums.length;
-		ArrayList<Integer> buff = new ArrayList<Integer>();
 		Deque<Integer> indexQ = new ArrayDeque<>();
 		int[] res = new int[n - k + 1];
 		int j = 0;
