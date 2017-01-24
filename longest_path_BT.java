@@ -1,6 +1,12 @@
 package leetcode;
 
 public class longest_path_BT {
+	
+	public static void main(String[] args){
+		
+	}
+	
+	// leetcode 124
 	public int maxPathSum(TreeNode root) {
 		int[] max = new int[1];
 		max[0] = Integer.MIN_VALUE;
@@ -8,7 +14,6 @@ public class longest_path_BT {
 		return max[0];
 	}
 
-	// leetcode 124
 	public int getLongestPath(TreeNode root, int[] max) {
 		// get the sum of left subtree and right subtree separately
 		// add them together with current node value to see if it's bigger than
