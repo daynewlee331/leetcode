@@ -1,13 +1,8 @@
 package leetcode;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 public class integer_to_english {
-	public static void main(String[] args){
-		integer_to_english ie = new integer_to_english();
-	}
 	private String[] lessThan20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private String[] tens = {"","","Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
 	private String[] thousands = {"","","Thousand", "Million", "Billion"};
