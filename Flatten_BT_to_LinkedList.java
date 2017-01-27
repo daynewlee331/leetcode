@@ -31,4 +31,22 @@ public class Flatten_BT_to_LinkedList {
 		helper(root.left, prev);
 		helper(right, prev);
 	}
+	
+	public void flatten2(TreeNode root) {
+		TreeNode[] prev = new TreeNode[1];
+		prev[0] = new TreeNode(-1);
+		helper2(root, prev);
+	}
+	
+	public void helper2(TreeNode root, TreeNode[] prev){
+		if(root == null) return;
+		TreeNode right = root.right;
+		if(prev != null){
+			prev[0].right = root;
+			prev[0].left = null;
+		}
+		prev[0] = root;
+		helper2(root.left, prev);
+		helper2(right, prev);
+	}
 }
