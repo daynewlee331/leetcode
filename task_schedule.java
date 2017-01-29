@@ -3,6 +3,7 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 /*
@@ -26,9 +27,27 @@ public class task_schedule {
 	
 	public static void main(String[] args){
 		task_schedule sol = new task_schedule();
-		String s = sol.taskSequence("AAABBB", 2);
+		String s = sol.taskSequence("AABBA", 2);
 		System.out.println(s);
 	}
+	
+	public int task(int[] tasks, int k){
+        Map<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for(int task : tasks){
+            if(map.containsKey(task)){
+                int endTime = map.get(task) + k + 1;
+                if( endTime > res){
+                    res = endTime;
+                } else{
+                    res++;
+                }
+            } else res++;
+            map.put(task,res);
+        }
+        return res;
+
+    }
 	
 	public String taskSequence(String tasks, int k){
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -63,13 +82,14 @@ public class task_schedule {
 				res += t.name;
 				buff.add(t);
 			}
-			
+			int len = buff.size();
 			for(Task t: buff){
 				t.freq --;
 				if(t.freq > 0) pq.offer(t);
 			}
 			
-			for(int i = 0; i < k + 1 - buff.size(); i ++)res += '_';
+			if(!pq.isEmpty())
+				for(int i = 0; i < k + 1 - len; i ++) res += '_';
 		}
 		
 		return res;
