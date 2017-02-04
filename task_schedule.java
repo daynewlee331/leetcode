@@ -27,7 +27,7 @@ public class task_schedule {
 	
 	public static void main(String[] args){
 		task_schedule sol = new task_schedule();
-		String s = sol.taskSequence("AABBA", 2);
+		String s = sol.taskSequence("AAAAAABBBBCCCD", 2);
 		System.out.println(s);
 	}
 	
