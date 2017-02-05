@@ -1,6 +1,12 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 //leetcode 269
 /*
@@ -13,6 +19,65 @@ import java.util.Arrays;
  * visited[i] = 2. Visited.
  */
 public class alien_dictionary {
+	public String alienOrderBFS(String[] words){
+		if(words == null || words.length < 1) return "";
+		Map<Character, Set<Character>> map = new HashMap<Character, Set<Character>>();
+		Map<Character, Integer> inDegree = new HashMap<Character, Integer>();
+		//initialize inDegree map
+		for(String word: words){
+			for(int i = 0; i < word.length(); i ++){
+				char c = word.charAt(i);
+				inDegree.put(c, 0);
+			}
+		}
+		
+		//create adjacency list
+		for(int i = 0; i < words.length - 1; i ++){
+			String cur = words[i];
+			String next = words[i + 1];
+			int len = Math.min(cur.length(), next.length());
+			for(int j = 0; j < len; j ++){
+				char c1 = cur.charAt(j); //source node
+				char c2 = next.charAt(j);//dest node
+				if(c1 != c2){
+					Set<Character> set = new HashSet<Character>();
+					if(map.containsKey(c1)) set = map.get(c1);
+					if(!set.contains(c2)){
+						set.add(c2);
+						map.put(c1, set);
+						inDegree.put(c2, inDegree.get(c2) + 1);
+					}
+					break;
+				}else{
+					if(j + 1 <= cur.length() - 1 && j + 1 > next.length() - 1) return "";
+				}
+			}
+		}
+		
+		//BFS
+		Queue<Character> queue = new LinkedList<Character>();
+		StringBuilder builder = new StringBuilder();
+		for(Character c : inDegree.keySet()){
+			if(inDegree.get(c) == 0) queue.add(c);
+		}
+		
+		while(!queue.isEmpty()){
+			char node = queue.poll();
+			builder.append(node);
+			if(map.containsKey(node)){
+				for(Character neighbor: map.get(node)){
+					int num = inDegree.get(neighbor);
+					inDegree.put(neighbor, num - 1);
+					if(num - 1 == 0){
+						queue.offer(neighbor);
+					}
+				}
+			}
+		}
+		
+		return builder.length() == inDegree.size()? builder.toString(): "";
+	}
+	
 	int N = 26;
 	public String alienOrder(String[] words) {
 		if(words == null || words.length < 1) return null;
