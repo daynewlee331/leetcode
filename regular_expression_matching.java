@@ -17,53 +17,42 @@ package leetcode;
  * 
  */
 public class regular_expression_matching {
+	
 	/*
-	 * 在这个题里面，假设我们维护一个布尔数组res[i][j],代表s的前i个字符和p的前j个字符是否匹配(注意这里res的维度是s.length()+1,p.length()+1)。
-	 * (1)p[j+1]不是'*'。情况比较简单，只要判断如果当前s的i和p的j上的字符一样（如果有p在j上的字符是'.',也是相同），并且res[i][j]==true，则res[i+1][j+1]也为true，res[i+1][j+1]=false; 
-	 * (2)p[j+1]是'*'，但是p[j]!='.'。那么只要以下条件有一个满足即可对res[i+1][j+1]赋值为true：
-	 * 		1)res[i+1][j]为真（'*'只取前面字符一次; 
-	 * 		2)res[i+1][j-1]为真（'*'前面字符一次都不取，也就是忽略这两个字符）;
-	 * 		3)res[i][j+1] && s[i]==s[i-1] && s[i-1]==p[j-1]
-	 * 		(这种情况是相当于i从0到s.length()扫过来，如果p[j+1]对应的字符是‘*’那就意味着接下来的串就可以依次匹配下来，如果下面的字符一直重复，并且就是‘*’前面的那个字符）
-	 * (3)p[j+1]是'*'，并且p[j]=='.'。
-	 * 因为".*"可以匹配任意字符串，所以在前面的res[i+1][j-1]或者res[i+1][j]中只要有i+1是true，
-	 * 那么剩下的res[i+1][j+1],res[i+2][j+1],...,res[s.length()][j+1]就都是true了。 
-	 * 这道题有个很重要的点，就是实现的时候外层循环应该是p,然后待匹配串s内层循环扫过来。
-	 */
-	public boolean isMatch(String s, String p) {
-		if (s.length() == 0 && p.length() == 0)
-			return true;
-		if (p.length() == 0)
-			return false;
-		boolean[][] res = new boolean[s.length() + 1][p.length() + 1];
-		res[0][0] = true;
-		for (int j = 0; j < p.length(); j++) {
-			if (p.charAt(j) == '*') {
-				if (j > 0 && res[0][j - 1]) res[0][j + 1] = true;
-				if (j < 1) continue;
-				if (p.charAt(j - 1) != '.') {
-					for (int i = 0; i < s.length(); i++) {
-						if (res[i + 1][j] || j > 0 && res[i + 1][j - 1] || i > 0 && j > 0 && res[i][j + 1]
-								&& s.charAt(i) == s.charAt(i - 1) && s.charAt(i - 1) == p.charAt(j - 1))
-							res[i + 1][j + 1] = true;
+	 * 1: If p.charAt(j) == s.charAt(i) :  dp[i][j] = dp[i-1][j-1];
+	 * 2: If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1];
+	 * 3: If p.charAt(j) == '*': 
+	 * 		a: if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  
+	 * 				in this case, a* only counts as empty, because * can matches zero preceding elements	
+	 * 		b: if p.charAt(j-1) == s.charAt(i) or p.charAt(j-1) == '.':
+	 * 				dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a 
+	 *              or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
+	 *              or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
+	 * 
+	 * */
+		public boolean isMatch(String s, String p) {
+			if(s == null || p == null) return false;
+			boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+			dp[0][0] = true;
+			for(int i = 0; i < p.length() ; i ++){
+				if(p.charAt(i) == '*' && dp[0][i - 1]) dp[0][i + 1] = true;
+			}
+			
+			for(int i = 0; i < s.length(); i ++){
+				for(int j = 0; j < p.length(); j ++){
+					if(s.charAt(i) == p.charAt(j)) dp[i + 1][j + 1] = dp[i][j];
+					if(p.charAt(j) == '.') dp[i + 1][j + 1] = dp[i][j];
+					if(p.charAt(j) == '*'){
+						if(j > 0 && p.charAt(j - 1) != s.charAt(i) && p.charAt(j - 1) != '.')
+							dp[i + 1][j + 1] = dp[i + 1][j - 1];
+						else{
+							dp[i + 1][j + 1] = dp[i][j + 1] || dp[i + 1][j - 1] || dp[i + 1][j];
+						}
 					}
-				} else {
-					int i = 0;
-					while (j > 0 && i < s.length() && !res[i + 1][j - 1] && !res[i + 1][j])
-						i++;
-					for (; i < s.length(); i++) {
-						res[i + 1][j + 1] = true;
-					}
-				}
-			} else {
-				for (int i = 0; i < s.length(); i++) {
-					if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.')
-						res[i + 1][j + 1] = res[i][j];
 				}
 			}
+			return dp[s.length()][p.length()];
 		}
-		return res[s.length()][p.length()];
-	}
 	
 	/*
 	 * 这个题目比较常见，但是难度还是比较大的。我们先来看看brute force怎么解决。
