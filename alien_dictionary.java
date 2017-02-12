@@ -21,61 +21,53 @@ import java.util.Set;
 public class alien_dictionary {
 	public String alienOrderBFS(String[] words){
 		if(words == null || words.length < 1) return "";
-		Map<Character, Set<Character>> map = new HashMap<Character, Set<Character>>();
 		Map<Character, Integer> inDegree = new HashMap<Character, Integer>();
-		//initialize inDegree map
+		Map<Character, Set<Character>> adjList = new HashMap<Character, Set<Character>>();
+		String res = "";
 		for(String word: words){
-			for(int i = 0; i < word.length(); i ++){
-				char c = word.charAt(i);
+			for(char c: word.toCharArray()) {
 				inDegree.put(c, 0);
 			}
 		}
-		
-		//create adjacency list
 		for(int i = 0; i < words.length - 1; i ++){
-			String cur = words[i];
-			String next = words[i + 1];
-			int len = Math.min(cur.length(), next.length());
+			String w1 = words[i];
+			String w2 = words[i + 1];
+			int len = Math.min(w1.length(), w2.length());
+			if(w1.length() > w2.length() && w1.startsWith(w2)) return "";
 			for(int j = 0; j < len; j ++){
-				char c1 = cur.charAt(j); //source node
-				char c2 = next.charAt(j);//dest node
+				char c1 = w1.charAt(j);
+				char c2 = w2.charAt(j);
 				if(c1 != c2){
 					Set<Character> set = new HashSet<Character>();
-					if(map.containsKey(c1)) set = map.get(c1);
+					if(adjList.containsKey(c1)) set = adjList.get(c1);
 					if(!set.contains(c2)){
 						set.add(c2);
-						map.put(c1, set);
+						adjList.put(c1, set);
 						inDegree.put(c2, inDegree.get(c2) + 1);
 					}
 					break;
-				}else{
-					if(j + 1 <= cur.length() - 1 && j + 1 > next.length() - 1) return "";
 				}
 			}
 		}
-		
-		//BFS
-		Queue<Character> queue = new LinkedList<Character>();
-		StringBuilder builder = new StringBuilder();
-		for(Character c : inDegree.keySet()){
-			if(inDegree.get(c) == 0) queue.add(c);
+		Queue<Character> q = new LinkedList<Character>();
+		for(char key: inDegree.keySet()){
+			if(inDegree.get(key) == 0) q.offer(key);
 		}
 		
-		while(!queue.isEmpty()){
-			char node = queue.poll();
-			builder.append(node);
-			if(map.containsKey(node)){
-				for(Character neighbor: map.get(node)){
-					int num = inDegree.get(neighbor);
-					inDegree.put(neighbor, num - 1);
-					if(num - 1 == 0){
-						queue.offer(neighbor);
+		while (!q.isEmpty()) {
+			char node = q.poll();
+			res += node;
+			if (adjList.containsKey(node)) {
+				for (char neighbor : adjList.get(node)) {
+					inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+					if (inDegree.get(neighbor) == 0) {
+						q.offer(neighbor);
 					}
 				}
 			}
 		}
-		
-		return builder.length() == inDegree.size()? builder.toString(): "";
+		if(res.length() != inDegree.size()) return "";
+		return res;
 	}
 	
 	int N = 26;

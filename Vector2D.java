@@ -29,7 +29,7 @@ public class Vector2D implements Iterator<Integer> {
 		while (sol.hasNext()) {
 			int result = sol.next();
 			System.out.print(result + " * ");
-			if(result == 0){
+			if(result == 2){
 				sol.remove();
 			}
 		}
@@ -69,25 +69,17 @@ public class Vector2D implements Iterator<Integer> {
         return this.row < this.buffer.size();
     }
     
-    //airbnb required method
-    public void remove(){
-    	//case 1: same row, previous col
-    	if(this.col - 1 >= 0){
-    		this.buffer.get(row).remove(this.col - 1);
-    	}
-    	//case 2: last row (previous several rows could be empty), last col
-    	else if(this.col - 1 < 0){
-    		int tmp = this.col - 1;
-    		while(tmp >= 0 && this.buffer.get(tmp).size() == 0) tmp --;
-    		if(tmp < 0) return;//no previous element
-    		int index = this.buffer.get(tmp).size() - 1;
-    		this.buffer.get(tmp).remove(index);
-    	}
-    	
-    	// Update the colId, if colID == 0, the remove happened in one of the previous cols
-        // no remove is required
-        if (this.col != 0) {
-          this.col--;
-        }
-    }
+  //airbnb required method
+  	//case1: the element is in current row
+  	//case2: the element is in one of the previous rows
+      public void remove(){
+      	if(this.col - 1 >= 0) this.buffer.get(row).remove(this.col - 1);
+      	else{
+      		int tmp = this.row - 1;
+          	while(tmp >= 0 && this.buffer.get(tmp).size() == 0) tmp --;
+          	if(tmp < 0) return;
+          	this.buffer.get(tmp).remove(this.buffer.get(tmp).size() - 1);
+      	}
+      	if(this.col > 0) this.col --;
+      }
 }
