@@ -1,30 +1,48 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 public class find_rectangle {
 	public static void main(String[] args){
-		HashSet<List<Integer>> set = new HashSet<List<Integer>>();
-		set.add(Arrays.asList(1,3));
-		System.out.println(set.contains(Arrays.asList(1,3)));
-		
 		int[][] matrix = new int[][]{
-			{1,1,1,0},
-			{1,1,1,0},
-			{1,1,1,0},
-			{1,1,1,0}
+			{1,1,1,1,1,1,1,1},
+			{1,1,0,0,1,1,1,1},
+			{1,1,0,0,1,1,1,1},
+			{1,1,0,0,1,1,1,1},
+			{1,1,1,1,0,0,0,1},
+			{1,1,1,1,1,1,1,1}
 		};
 		find_rectangle sol = new find_rectangle();
-		int[] arr = sol.findRectangle(matrix);
-		for(int num: arr) System.out.print(num + " ");
 	}
 	
-	/*
-	public int[] findRectangleRec(int[][] matrix){
+	public int[] findDiagnose(int[][] matrix){
+		if(matrix == null || matrix.length < 1) return new int[]{-1,-1,-1,-1};
+		int row1 = -1, col1 = -1, row2 = -1, col2 = -1;
+		for(int i = 0; i < matrix.length; i ++){
+			for(int j = 0; j < matrix[0].length; j ++){
+				if(matrix[i][j] == 0 && row1 == -1 && col1 == -1){
+					row1 = i;
+					col1 = j;
+				}
+			}
+			if(row1 > -1 && col1 > -1) break;
+		}
 		
-	}*/
+		for(int i = matrix.length - 1; i >= 0; i --){
+			for(int j = matrix[0].length - 1; j >= 0; j --){
+				if(matrix[i][j] == 0 && row2 == -1 && col2 == -1) {
+					row2 = i;
+					col2 = j;
+				}
+			}
+			if(row2 > -1 && col2 > -1) break;
+		}
+		
+		return new int[]{row1, col1, row2, col2};
+	}
 	
 	public int[] findRectangle(int[][] matrix){
 		if(matrix == null || matrix.length < 1) return new int[]{-1,-1,0,0};
