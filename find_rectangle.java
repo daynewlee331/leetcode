@@ -12,10 +12,12 @@ public class find_rectangle {
 			{1,1,0,0,1,1,1,1},
 			{1,1,0,0,1,1,1,1},
 			{1,1,0,0,1,1,1,1},
-			{1,1,1,1,0,0,0,1},
+			{1,1,1,1,1,1,1,1},
 			{1,1,1,1,1,1,1,1}
 		};
 		find_rectangle sol = new find_rectangle();
+		int[] test = sol.findDiagnose(matrix);
+		System.out.println(test[0] + " " + test[1] + " " + test[2] + " " + test[3]);
 	}
 	
 	public int[] findDiagnose(int[][] matrix){
