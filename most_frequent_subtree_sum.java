@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class most_frequent_subtree_sum {
+	public static void main(String[] args){
+		System.out.println(true&&true&&false);
+	}
+	
 	int[] max = {0};
 	public int[] findFrequentTreeSum(TreeNode root) {
 		if(root == null) return new int[0];
