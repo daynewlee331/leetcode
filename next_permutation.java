@@ -6,29 +6,34 @@ public class next_permutation {
 		sol.nextPermutation(new int[]{1,2,3});
 	}
 	public void nextPermutation(int[] nums) {
-        if(nums == null || nums.length < 1) return;
-        int i = nums.length - 2;
-        //find the first one which breaks the ascending order from LEAST significant digit
-        while(i >= 0 && nums[i] >= nums[i + 1]) i --;
-        if(i >= 0){
-        	int j = nums.length - 1;
-        	while(nums[j] <= nums[i]) j --; // find the rightmost one which is bigger than a[i]
-        	swap(nums, i , j);
+		if(nums == null || nums.length <= 1) return;
+        int index = -1, flag = -1;
+        for(int i = nums.length - 1; i - 1 >= 0; i --){
+        		if(nums[i - 1] < nums[i]) {
+        			index = i - 1;
+        			flag = i;
+        			break;
+        		}
         }
-        reverse(nums, i + 1, nums.length - 1); //change it to descending order
+        if(index == -1) { reverse(nums, 0, nums.length - 1); return; }
+        	for(int i = nums.length - 1; i >= 0; i --){
+        		if(nums[i] > nums[index]) {
+        			int tmp = nums[i];
+        			nums[i] = nums[index];
+        			nums[index] = tmp;
+        			break;
+        		}
+        	}
+        	reverse(nums, flag, nums.length - 1);
     }
 	
-	public void swap(int a[], int i, int j){
-		int tmp = a[i];
-		a[i] = a[j];
-		a[j] = tmp;
-	}
-	
-	public void reverse(int[] a, int i, int j){
-		while(i < j){
-			swap(a, i, j);
-			i ++;
-			j --;
+	public void reverse(int[] nums, int left, int right){
+		while(left < right){
+			int tmp = nums[left];
+			nums[left] = nums[right];
+			nums[right] = tmp;
+			left ++;
+			right --;
 		}
 	}
 }
